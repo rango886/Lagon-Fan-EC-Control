@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="FanControl.Control.DraggableGraph"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:FanControl.Control"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+
+    <Grid RowSpacing="25"
+          SizeChanged="Grid_SizeChanged">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Canvas x:Name="_canvas"
+                Grid.Row="0"
+                Grid.Column="0" />
+        <Grid x:Name="_slidersGrid"
+              Grid.Column="0"
+              Grid.Row="0">
+
+        </Grid>
+        <Grid Grid.Row="1"
+              Grid.Column="0"
+              RowSpacing="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock  x:Name="_DataName"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="_DataName.Text"/>
+
+            <TextBlock x:Name="_DataValue"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       Text="_DataValue.Text" />
+        </Grid>
+
+    </Grid>
+</UserControl>

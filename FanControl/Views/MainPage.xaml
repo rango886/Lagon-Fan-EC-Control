@@ -1,0 +1,329 @@
+﻿<Page x:Class="FanControl.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:control="using:FanControl.Control"
+      mc:Ignorable="d">
+    <ScrollViewer>
+        <StackPanel x:Name="ContentArea">
+
+            <Grid ColumnSpacing="50"
+                  Grid.Row="0"
+                  Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Text="Number of Fan Point" />
+
+                <NumberBox x:Name="_fan_point_no"
+                           VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Value="1"
+                           IsEnabled="False"
+                           Minimum="1"
+                           Maximum="16"
+                           SpinButtonPlacementMode="Compact"
+                           SmallChange="1" />
+                <ToggleSplitButton x:Name="EditButton"
+                                   VerticalAlignment="Top"
+                                   Click="EditMode_Checked"
+                                   Grid.Row="0"
+                                   Grid.Column="2">
+                    <TextBlock Text="Enable Edit" />
+                    <ToggleSplitButton.Flyout>
+                        <Flyout Placement="Bottom">
+                            <StackPanel>
+                                <RadioButtons>
+                                    <RadioButton Content="Synced"
+                                                 ToolTipService.ToolTip="Use the same curve on both fan"
+                                                 IsChecked="True" />
+                                    <RadioButton Content="Async"
+                                                 ToolTipService.ToolTip="Use different curve" />
+                                </RadioButtons>
+                            </StackPanel>
+                        </Flyout>
+                    </ToggleSplitButton.Flyout>
+                </ToggleSplitButton>
+
+                <ToggleButton x:Name="TurboButton"
+                              VerticalAlignment="Top"
+                              Click="TurboButton_Click"
+                              Grid.Row="0"
+                              Content="Turbo"
+                              Grid.Column="3" />
+            </Grid>
+
+            <Line></Line>
+            <Expander x:Name="FanControl"
+                      Header="Fan Curve"
+                      Width="900"
+                      Height="Auto">
+
+                <Expander.Content>
+                    <Grid RowSpacing="25"
+                          ColumnSpacing="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <control:DraggableGraph x:Name="FanLeft"
+                                                SliderMax="4500"
+                                                BackGroundRow="10"
+                                                BackGroundColumn="10"
+                                                NoOfSlider="10"
+                                                SliderValueDivisor="100"
+                                                EnableEdit="False"
+                                                ForceMonotonicIncreasing="True"
+                                                ForceMonotonicDecreasing="False"
+                                                Width="400"
+                                                Height="300"
+                                                Grid.Row="0"
+                                                Grid.Column="0" />
+                        <control:DraggableGraph x:Name="FanRight"
+                                                SliderMax="4500"
+                                                NoOfSlider="10"
+                                                SliderValueDivisor="100"
+                                                BackGroundRow="10"
+                                                BackGroundColumn="10"
+                                                EnableEdit="False"
+                                                ForceMonotonicIncreasing="True"
+                                                ForceMonotonicDecreasing="False"
+                                                Width="400"
+                                                Height="300"
+                                                Grid.Row="0"
+                                                Grid.Column="1" />
+
+                    </Grid>
+                </Expander.Content>
+            </Expander>
+
+            <Expander x:Name="TempControl"
+                      Header="Temp Curve"
+                      Width="900"
+                      Height="Auto">
+                <Expander.Content>
+
+                    <StackPanel HorizontalAlignment="Center">
+
+                        <DropDownButton Name="TempSource"
+                                        Content="TempSource"
+                                        IsEnabled="False"
+                                        Margin="0,10,0,10">
+                            <DropDownButton.Flyout>
+                                <Flyout Placement="Bottom">
+                                    <StackPanel>
+                                        <CheckBox Name="CPU_Source"
+                                                  Content="CPU"
+                                                  Checked="TempSourceHandler"
+                                                  Unchecked="TempSourceHandler" />
+                                        <CheckBox Name="GPU_Source"
+                                                  Content="GPU"
+                                                  Checked="TempSourceHandler"
+                                                  Unchecked="TempSourceHandler" />
+                                        <CheckBox Name="VRM_Source"
+                                                  Content="VRM"
+                                                  Checked="TempSourceHandler"
+                                                  Unchecked="TempSourceHandler" />
+                                    </StackPanel>
+                                </Flyout>
+                            </DropDownButton.Flyout>
+                        </DropDownButton>
+                        <Grid RowSpacing="25"
+                              ColumnSpacing="50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <control:DraggableGraph x:Name="CPU_TEMP"
+                                                    HorizontalAlignment="Center"
+                                                    SliderMax="127"
+                                                    BackGroundRow="10"
+                                                    BackGroundColumn="10"
+                                                    NoOfSlider="10"
+                                                    Width="400"
+                                                    EnableEdit="False"
+                                                    ForceMonotonicIncreasing="False"
+                                                    ForceMonotonicDecreasing="False"
+                                                    Height="300"
+                                                    Grid.Row="0"
+                                                    Grid.Column="0" />
+
+                            <control:DraggableGraph x:Name="CPU_TEMP_HYST"
+                                                    HorizontalAlignment="Center"
+                                                    SliderMax="127"
+                                                    BackGroundRow="10"
+                                                    BackGroundColumn="10"
+                                                    NoOfSlider="10"
+                                                    Width="400"
+                                                    EnableEdit="False"
+                                                    ForceMonotonicIncreasing="False"
+                                                    ForceMonotonicDecreasing="False"
+                                                    Height="300"
+                                                    Grid.Row="0"
+                                                    Grid.Column="1" />
+
+                        </Grid>
+                        <Grid RowSpacing="25"
+                              ColumnSpacing="50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <control:DraggableGraph x:Name="GPU_TEMP"
+                                                    HorizontalAlignment="Center"
+                                                    SliderMax="127"
+                                                    NoOfSlider="10"
+                                                    BackGroundRow="10"
+                                                    BackGroundColumn="10"
+                                                    EnableEdit="False"
+                                                    ForceMonotonicIncreasing="False"
+                                                    ForceMonotonicDecreasing="False"
+                                                    Width="400"
+                                                    Height="300"
+                                                    Grid.Row="0"
+                                                    Grid.Column="0" />
+                            <control:DraggableGraph x:Name="GPU_TEMP_HYST"
+                                                    HorizontalAlignment="Center"
+                                                    SliderMax="127"
+                                                    BackGroundRow="10"
+                                                    BackGroundColumn="10"
+                                                    NoOfSlider="10"
+                                                    Width="400"
+                                                    EnableEdit="False"
+                                                    ForceMonotonicIncreasing="False"
+                                                    ForceMonotonicDecreasing="False"
+                                                    Height="300"
+                                                    Grid.Row="0"
+                                                    Grid.Column="1" />
+                        </Grid>
+                        <Grid RowSpacing="25"
+                              ColumnSpacing="50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <control:DraggableGraph x:Name="VRM_TEMP"
+                                                    HorizontalAlignment="Center"
+                                                    SliderMax="127"
+                                                    NoOfSlider="10"
+                                                    BackGroundRow="10"
+                                                    BackGroundColumn="10"
+                                                    EnableEdit="False"
+                                                    ForceMonotonicIncreasing="False"
+                                                    ForceMonotonicDecreasing="False"
+                                                    Width="400"
+                                                    Height="300"
+                                                    Grid.Row="0"
+                                                    Grid.Column="0" />
+                            <control:DraggableGraph x:Name="VRM_TEMP_HYST"
+                                                    HorizontalAlignment="Center"
+                                                    SliderMax="127"
+                                                    BackGroundRow="10"
+                                                    BackGroundColumn="10"
+                                                    NoOfSlider="10"
+                                                    Width="400"
+                                                    EnableEdit="False"
+                                                    ForceMonotonicIncreasing="False"
+                                                    ForceMonotonicDecreasing="False"
+                                                    Height="300"
+                                                    Grid.Row="0"
+                                                    Grid.Column="1" />
+                        </Grid>
+
+                    </StackPanel>
+
+                </Expander.Content>
+            </Expander>
+
+            <Expander x:Name="AccellControl"
+                      Header="Accelleration Curve"
+                      Width="900"
+                      Height="Auto">
+                <Expander.Content>
+
+                    <Grid RowSpacing="25"
+                          ColumnSpacing="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ToggleSplitButton x:Name="modeButton"
+                                           VerticalAlignment="Top"
+                                           Grid.Row="0"
+                                           Grid.Column="0"
+                                           Click="modeButton_Click">
+                            <TextBlock Text="Force Monotonic" />
+                            <ToggleSplitButton.Flyout>
+                                <Flyout Placement="Bottom">
+                                    <StackPanel>
+                                        <RadioButtons>
+                                            <RadioButton Content="Monotonic Increasing"
+                                                         ToolTipService.ToolTip="Delay can be equal or higher than the preceding"
+                                                         IsChecked="True"
+                                                         x:Name="Monotonic_inc_radio" />
+                                            <RadioButton Content="Monotonic Decreasing"
+                                                         ToolTipService.ToolTip="Delay can be equal or lower than the preceding" />
+                                        </RadioButtons>
+                                    </StackPanel>
+                                </Flyout>
+                            </ToggleSplitButton.Flyout>
+                        </ToggleSplitButton>
+                        <control:DraggableGraph x:Name="FanAcc"
+                                                SliderMax="10"
+                                                BackGroundRow="10"
+                                                BackGroundColumn="10"
+                                                NoOfSlider="10"
+                                                Width="400"
+                                                EnableEdit="False"
+                                                ForceMonotonicIncreasing="False"
+                                                ForceMonotonicDecreasing="False"
+                                                Height="300"
+                                                Grid.Row="1"
+                                                Grid.Column="0" />
+                        <control:DraggableGraph x:Name="FanDec"
+                                                SliderMax="10"
+                                                NoOfSlider="10"
+                                                BackGroundRow="10"
+                                                BackGroundColumn="10"
+                                                EnableEdit="False"
+                                                ForceMonotonicIncreasing="False"
+                                                ForceMonotonicDecreasing="False"
+                                                Width="400"
+                                                Height="300"
+                                                Grid.Row="1"
+                                                Grid.Column="1" />
+
+                    </Grid>
+
+                </Expander.Content>
+            </Expander>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

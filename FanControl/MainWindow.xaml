@@ -1,0 +1,18 @@
+﻿<windowex:WindowEx x:Class="FanControl.MainWindow"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:local="using:FanControl"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:windowex="using:WinUIEx"
+                   MinWidth="1200"
+                   MinHeight="800"
+                   Width="1200"
+                   Height="800"
+                   IsResizable="False"
+                   PersistenceId="MainWindow"
+                   mc:Ignorable="d">
+    <windowex:WindowEx.Backdrop>
+        <windowex:MicaSystemBackdrop />
+    </windowex:WindowEx.Backdrop>
+</windowex:WindowEx>

@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "FanControl (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "FanControl(Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
